@@ -49,17 +49,17 @@ function playRound2(playerSelection, computerSelection) {
     if (playerSelection.toLowerCase() == computerSelection) {
         return "Tie game!"
     } else if (choice == "rock" && computerSelection == "scissors") {
-        return "You won!" 
+        return "You won! Rock beats scissors!" 
     } else if (choice == "rock" && computerSelection == "paper") {
-        return "You lost!" 
+        return "You lost Paper beats rock!" 
     } else if (choice == "paper" && computerSelection == "rock") {
-        return "You won!" 
+        return "You won! Paper beats rock!" 
     } else if (choice == "paper" && computerSelection == "scissors") {
-        return "You lost!" 
+        return "You lost! Scissors beat paper!" 
     } else if (choice == "scissors" && computerSelection == "paper") {
-        return "You won!" 
+        return "You won! Scissors beat paper!" 
     } else if (choice == "scissors" && computerSelection == "rock") {
-        return "You lost!" 
+        return "You lost! Rock beats scissors!" 
     }
 }
 
