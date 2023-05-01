@@ -42,39 +42,49 @@ function getComputerChoice() { //Computer randomly selects rock, paper or scisso
 }
 
 function getPlayerSelection() { //Reference the result of this to obtain player selection. This may not have needed to be a function... I think I could have just done playerSelection = prompt (Rock, paper, scissors)  in playRound. 
-    return prompt("Rock, paper, scissors?") 
-//idea:  choice = prompt().toLowerCase, if (choice = "rock || "paper" || "scissors")- reprompt, else return choice  ")
-//could probably remove const choice from playRound - would need to reference playSelection in if else statements as well... maybe? unsure, choice may still work. 
-    }
+    playerInput = prompt("Rock, paper, scissors!").toLowerCase();
+    if (playerInput == "rock" || playerInput == "paper" || playerInput == "scissors") {    
+        return playerInput; 
+    } else { 
+        playerInput = errorMessage();
 
-// if choice =/ rock, paper or scissors, activate prompt "You can only select rock paper or scissors. Please type the word correctly to try again."
+    }
+}
+
+function errorMessage() { //prompts user for more precise spelling if they are not spelling correctly. 
+    playerInput = prompt("Your choice was invalid. You must select rock, paper or scissors. Please ensure you spell your choice correctly - capitals do not matter.").toLowerCase();
+    if (playerInput !== "rock" && playerInput !== "paper" && playerInput !== "scissors") {
+        errorMessage();
+    } else {
+        return playerInput;
+    }
+}
 
 function playRound(playerSelection, computerSelection) {
     console.log("Round " + round + "."); //display current round. 
     playerSelection = getPlayerSelection(); //define playerSelection
-    const choice = playerSelection.toLowerCase(); //making the playerSelection case insensitive. 
-    console.log("You have selected " + choice + "."); //display player choice. 
+    console.log("You have selected " + playerSelection + "."); //display player choice. 
     computerSelection = getComputerChoice(); //define computerSelection 
     console.log("Computer has selected " + computerSelection + "."); //display computerSelection 
-    if (choice == computerSelection) { 
+    if (playerSelection == computerSelection) { 
         result = "tie"; //gives a result based on whether user beat, lost, or tied with computer. 
         console.log("Round tied!") //displays result.
-    } else if (choice == "rock" && computerSelection == "scissors") {
+    } else if (playerSelection == "rock" && computerSelection == "scissors") {
         result = "win";
         console.log("You won! Rock beats scissors!")
-    } else if (choice == "rock" && computerSelection == "paper") {
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
         result = "lose";
         console.log("You lost Paper beats rock!")
-    } else if (choice == "paper" && computerSelection == "rock") {
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
         result = "win";
         console.log("You won! Paper beats rock!")
-    } else if (choice == "paper" && computerSelection == "scissors") {
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
         result = "lose";
         console.log("You lost! Scissors beat paper!") 
-    } else if (choice == "scissors" && computerSelection == "paper") {
+    } else if (playerSelection == "scissors" && computerSelection == "paper") {
         result = "win";
         console.log("You won! Scissors beat paper!")
-    } else if (choice == "scissors" && computerSelection == "rock") {
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
         result = "lose";
         console.log("You lost! Rock beats scissors!") 
     }
