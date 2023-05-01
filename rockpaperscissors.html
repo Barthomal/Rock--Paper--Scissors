@@ -15,7 +15,7 @@ let round; //begins at 1, w/ newGame(), increases after each round until 5.
 let playerSelection; //defined by getPlayerSelection
 let computerSelection; //defined by computerSelection
 
-function newGame() {
+function newGame() { //resets all of these values when a game begins anew. Could probably have declared these variables outside of the function since there is no way to restart game without reloading right now. 
     playerScore = 0;
     computerScore = 0;
     result = undefined;
@@ -35,27 +35,30 @@ function scoreKeeper() { //makes user or PC score go up depending on result. Tie
     }
 }
 
-function getComputerChoice() { //selects rock, paper or scissors for computer each time it is invoked 
-    const choiceOptions = ["rock", "paper", "scissors"]; //array of 3 options
-    const computerChoice = Math.floor(Math.random() * choiceOptions.length); //selects one of the 3 options at random
+function getComputerChoice() { //Computer randomly selects rock, paper or scissors from an array each time it is invoked 
+    const choiceOptions = ["rock", "paper", "scissors"]; 
+    const computerChoice = Math.floor(Math.random() * choiceOptions.length); 
     return choiceOptions[computerChoice];
 }
 
-function getPlayerSelection() {
-    return prompt("Rock, paper, scissors?")
+function getPlayerSelection() { //Reference the result of this to obtain player selection. This may not have needed to be a function... I think I could have just done playerSelection = prompt (Rock, paper, scissors)  in playRound. 
+    return prompt("Rock, paper, scissors?") 
+//idea:  choice = prompt().toLowerCase, if (choice = "rock || "paper" || "scissors")- reprompt, else return choice  ")
+//could probably remove const choice from playRound - would need to reference playSelection in if else statements as well... maybe? unsure, choice may still work. 
     }
 
+// if choice =/ rock, paper or scissors, activate prompt "You can only select rock paper or scissors. Please type the word correctly to try again."
 
 function playRound(playerSelection, computerSelection) {
-    console.log("Round " + round + ".")
-    playerSelection = getPlayerSelection();
-    const choice = playerSelection.toLowerCase();
-    console.log("You have selected " + choice + ".");
-    computerSelection = getComputerChoice();
-    console.log("Computer has selected " + computerSelection + ".");
-    if (choice == computerSelection) {
-        result = "tie";
-        console.log("Tie game!")
+    console.log("Round " + round + "."); //display current round. 
+    playerSelection = getPlayerSelection(); //define playerSelection
+    const choice = playerSelection.toLowerCase(); //making the playerSelection case insensitive. 
+    console.log("You have selected " + choice + "."); //display player choice. 
+    computerSelection = getComputerChoice(); //define computerSelection 
+    console.log("Computer has selected " + computerSelection + "."); //display computerSelection 
+    if (choice == computerSelection) { 
+        result = "tie"; //gives a result based on whether user beat, lost, or tied with computer. 
+        console.log("Round tied!") //displays result.
     } else if (choice == "rock" && computerSelection == "scissors") {
         result = "win";
         console.log("You won! Rock beats scissors!")
@@ -75,15 +78,12 @@ function playRound(playerSelection, computerSelection) {
         result = "lose";
         console.log("You lost! Rock beats scissors!") 
     }
-    scoreKeeper();
-    displayScore();
-    round++;
+    scoreKeeper(); //keeps track of score in the backgound. 
+    displayScore(); //displays score at the end of the round. 
+    round++; //increases the round - this will be referenced in the beginning of the next round. 
 }
 
-// if choice =/ rock, paper or scissors, activate prompt "You can only select rock paper or scissors. Please type the word correctly to try again."
-
-
-function finalResult() {
+function finalResult() { //displays final result message at the end of five rounds. 
     if (playerScore > computerScore) {
         console.log("Winner!");
     } else if (playerScore < computerScore) {
@@ -94,13 +94,12 @@ function finalResult() {
 }
 
 function game() {
-    newGame();
+    newGame(); 
     displayScore();
-    for(let i = 0; i < 5; i++ ) { 
+    for(let i = 0; i < 5; i++ ) { //loop the game for 5 rounds.
     playRound(playerSelection, computerSelection);
     }
     finalResult();
- 
 }
 
 console.log(game())
